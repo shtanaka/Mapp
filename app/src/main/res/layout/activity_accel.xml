@@ -53,4 +53,14 @@ tools:context="com.mapp.gustavo.mapp.AccelActivity">
     android:layout_below="@+id/zText"
     android:layout_centerHorizontal="true"
     android:layout_marginTop="34dp" />
+
+<EditText
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="File Name"
+    android:id="@+id/editText"
+    android:layout_below="@+id/toggleButton"
+    android:layout_centerHorizontal="true"
+    android:layout_marginTop="18dp" />
+
 </RelativeLayout>

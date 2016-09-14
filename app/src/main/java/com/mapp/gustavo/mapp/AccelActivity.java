@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.io.File;
@@ -20,6 +21,7 @@ public class AccelActivity extends AppCompatActivity implements SensorEventListe
     private Sensor sensor;
     private SensorManager sensorManager;
     private TextView xText, yText, zText;
+    private EditText fileNameEditText;
     private Button toggleButton;
     private double gx, gy, gz;
     private boolean isSensorOn;
@@ -34,6 +36,7 @@ public class AccelActivity extends AppCompatActivity implements SensorEventListe
         xText = (TextView) findViewById(R.id.xText);
         yText = (TextView) findViewById(R.id.yText);
         zText = (TextView) findViewById(R.id.zText);
+        fileNameEditText = (EditText) findViewById(R.id.editText);
         toggleButton = (Button) findViewById(R.id.toggleButton);
         toggleButton.setOnClickListener(this);
         isSensorOn = false;
@@ -50,10 +53,7 @@ public class AccelActivity extends AppCompatActivity implements SensorEventListe
 
     public boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
-        if (Environment.MEDIA_MOUNTED.equals(state)) {
-            return true;
-        }
-        return false;
+        return Environment.MEDIA_MOUNTED.equals(state);
     }
 
     @Override
@@ -72,8 +72,10 @@ public class AccelActivity extends AppCompatActivity implements SensorEventListe
             gz = alpha * gz + (1 - alpha) * sensorEvent.values[2];
 
             String line = Double.toString(gx) + "," + Double.toString(gy) + "," + Double.toString(gz) + "\n";
-            String FILENAME = "mov_data.csv";
+            String FILENAME = fileNameEditText.getText().toString();
+            System.out.println(FILENAME);
             File path = Environment.getExternalStorageDirectory();
+
             System.out.println(path.getAbsolutePath());
             File file = new File(path, FILENAME);
             try {
